@@ -7,7 +7,8 @@ module blink (input wire clk,        // 50MHz input clock
     
     wire clk_2; 
     wire clk_3; 
-    reg [31:0] cnt_100; // 32-bit counter
+    reg [31:0] cnt_2; // 32-bit counter
+    reg [31:0] cnt_3; // 32-bit counter
 
     initial begin
         cnt <= 32'h00000000; // start at zero
@@ -18,7 +19,7 @@ module blink (input wire clk,        // 50MHz input clock
     end
 
     always @(posedge clk_2) begin
-        cnt_100 <= cnt_100 + 1; // count up
+        cnt_2 <= cnt_2 + 1; // count up
     end
 
     assign clk_2 = ~clk;
@@ -28,6 +29,19 @@ module blink (input wire clk,        // 50MHz input clock
     assign TEST_IO[0] = clk;
     assign TEST_IO[1] = clk_2;
     assign TEST_IO[2] = cnt[24];
-    assign TEST_IO[3] = cnt_100[24];    
+    assign TEST_IO[3] = cnt_2[24];    
+
+    pll pll_1 (
+        .refclk   (clk),   //  refclk.clk
+		.rst      (0),      //   reset.reset
+		.outclk_0 (clk_3), // outclk0.clk
+    );
+
+    always @(posedge clk_3) begin
+        cnt_3 <= cnt_3 + 1; // count up
+    end
+    
+    assign TEST_IO[4] = clk_3;  
+    assign TEST_IO[5] = cnt_3[24];  
     
 endmodule
