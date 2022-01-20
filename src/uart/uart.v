@@ -3,42 +3,41 @@ module uart (input wire clk,        // 50MHz input clock
              output UART_TX,
              output [7:0] TEST_IO);
     
-    reg [31:0] cnt; // 32-bit counter
+    // 50,000,000 / 115,200 = 434...
+    localparam BAUD_RATE = 435;
+    
+    reg [31:0] cnt; // led 32-bit counter
     reg [7:0] TX_BYTE = 8'h0E;
-    reg r_TX_DV         = 1'b1;
+    reg r_TX_DV       = 1'b1;
     wire TX_ACTIVE;
     wire TX_DONE;
     wire [2:0] TX_STATE;
     
-    // 50,000,000 / 115,200 = 434...
-    localparam BAUD_RATE = 435;
+    reg [7:0] DATA[10:0];
+    reg [3:0] DATA_CNT = 0;
+    reg [15:0] BINARY_POINTS_H; // point x
+    reg [15:0] BINARY_POINTS_V; // point y
     
     initial begin
-        cnt <= 32'h00000000; // start at zero
+        cnt <= 32'h00000000; // led start at zero
+    end
+    
+    initial begin // set tx data
+        DATA[0] = 7'h53; //S
+        DATA[1] = 7'h54; //T
+        DATA[2] = 7'h87; //data
+        DATA[3] = 7'h45; //E
+        DATA[4] = 7'h4E; //N
+        DATA[5] = 7'h44; //D
     end
     
     always @(posedge clk) begin
-        cnt <= cnt + 1; // count up
+        cnt <= cnt + 1; // led count up
         r_TX_DV = 1'b1;
     end
     
     //assign LED to 25th bit of the counter to blink the LED at a few Hz
     assign LED = cnt[24];
-    
-    // rs232uart u0 (
-    // .clk        (<connected-to-clk>),        //                clk.clk
-    // .reset      (<connected-to-reset>),      //              reset.reset
-    // .address    (<connected-to-address>),    // avalon_rs232_slave.address
-    // .chipselect (<connected-to-chipselect>), //                   .chipselect
-    // .byteenable (<connected-to-byteenable>), //                   .byteenable
-    // .read       (<connected-to-read>),       //                   .read
-    // .write      (<connected-to-write>),      //                   .write
-    // .writedata  (<connected-to-writedata>),  //                   .writedata
-    // .readdata   (<connected-to-readdata>),   //                   .readdata
-    // .irq        (<connected-to-irq>),        //          interrupt.irq
-    // .UART_RXD   (<connected-to-UART_RXD>),   // external_interface.RXD
-    // .UART_TXD   (<connected-to-UART_TXD>)    //                   .TXD
-    // );
     
     uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) u0 (
     .i_Clock(clk),
@@ -49,22 +48,18 @@ module uart (input wire clk,        // 50MHz input clock
     .o_Tx_Done(TX_DONE),
     .o_Tx_State(TX_STATE)
     );
-
-    always @(posedge TX_DONE) begin
-      TX_BYTE <= TX_BYTE + 1;
-    end
-
     
-    // initial
-    // begin
-    //     // Tell UART to send a command (exercise TX)
-    //     @(posedge clk);
-    //     @(posedge clk);
-    //     r_TX_DV   <= 1'b1;
-    //     TX_BYTE <= 8'h3F;
-    //     @(posedge clk);
-    //     r_TX_DV <= 1'b0;
-    // end
+    always @(posedge TX_DONE) begin
+        TX_BYTE <= DATA[DATA_CNT];
+        if (DATA_CNT < 5)
+        begin
+            DATA_CNT <= DATA_CNT + 1;
+        end
+        else
+        begin
+            DATA_CNT <= 0;
+        end
+    end
     
     assign TEST_IO[0] = UART_TX;
     assign TEST_IO[1] = LED;

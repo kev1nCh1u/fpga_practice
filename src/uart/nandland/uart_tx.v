@@ -26,12 +26,12 @@ module uart_tx #(parameter CLKS_PER_BIT)
     parameter s_TX_STOP_BIT  = 3'b011;
     parameter s_CLEANUP      = 3'b100;
     
-    reg [2:0]    r_SM_Main     = 0;
+    reg [2:0]    r_SM_Main      = 0;
     reg [15:0]    r_Clock_Count = 0;
-    reg [2:0]    r_Bit_Index   = 0;
+    reg [2:0]    r_Bit_Index    = 0;
     reg [15:0]    r_Tx_Data     = 0;
-    reg          r_Tx_Done     = 0;
-    reg          r_Tx_Active   = 0;
+    reg          r_Tx_Done      = 0;
+    reg          r_Tx_Active    = 0;
     
     always @(posedge i_Clock)
     begin
@@ -140,6 +140,6 @@ module uart_tx #(parameter CLKS_PER_BIT)
     
     assign o_Tx_Active = r_Tx_Active;
     assign o_Tx_Done   = r_Tx_Done;
-    assign o_Tx_State   = r_SM_Main;
+    assign o_Tx_State  = r_SM_Main;
     
 endmodule
