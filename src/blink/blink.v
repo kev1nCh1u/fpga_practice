@@ -29,8 +29,8 @@ module blink (input wire clk,        // 50MHz input clock
     assign TEST_IO[0] = clk;
     assign TEST_IO[1] = clk_2;
     assign TEST_IO[2] = cnt[24];
-    assign TEST_IO[3] = cnt_2[24];    
-
+    assign TEST_IO[3] = cnt_2[24];   
+    
     pll pll_1 (
         .refclk   (clk),   //  refclk.clk
 		.rst      (0),      //   reset.reset
