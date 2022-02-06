@@ -17,7 +17,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 20.1.1 Build 720 11/11/2020 SJ Standard Edition"
 
-// DATE "01/20/2022 20:29:01"
+// DATE "01/24/2022 20:13:50"
 
 // 
 // Device: Altera 5CSEBA6U23I7 Package UFBGA672
@@ -45,10 +45,10 @@ output 	DIFF_OUT;
 
 // Design Ports Information
 // LED	=>  Location: PIN_W15,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
-// DIFF_IN	=>  Location: PIN_Y24,	 I/O Standard: LVDS,	 Current Strength: Default
+// DIFF_IN	=>  Location: PIN_AD11,	 I/O Standard: LVDS,	 Current Strength: Default
 // DIFF_OUT	=>  Location: PIN_AG14,	 I/O Standard: LVDS,	 Current Strength: Default
 // clk	=>  Location: PIN_V11,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
-// DIFF_IN(n)	=>  Location: PIN_W24,	 I/O Standard: LVDS,	 Current Strength: Default
+// DIFF_IN(n)	=>  Location: PIN_AE11,	 I/O Standard: LVDS,	 Current Strength: Default
 // DIFF_OUT(n)	=>  Location: PIN_AH13,	 I/O Standard: LVDS,	 Current Strength: Default
 
 
@@ -1298,7 +1298,7 @@ defparam \cnt[24] .is_wysiwyg = "true";
 defparam \cnt[24] .power_up = "low";
 // synopsys translate_on
 
-// Location: IOIBUF_X89_Y25_N4
+// Location: IOIBUF_X30_Y0_N1
 cyclonev_io_ibuf \DIFF_IN~input (
 	.i(DIFF_IN),
 	.ibar(\DIFF_IN(n) ),
