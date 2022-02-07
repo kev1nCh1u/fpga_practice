@@ -18,7 +18,7 @@ module uart_tx #(parameter CLKS_PER_BIT)
                  output o_Tx_Active,
                  output reg o_Tx_Serial,
                  output o_Tx_Done,
-                 output [2:0] o_Tx_State);
+                 output [2:0] o_Tx_State); // kevin state
     
     parameter s_IDLE         = 3'b000;
     parameter s_TX_START_BIT = 3'b001;
@@ -29,7 +29,7 @@ module uart_tx #(parameter CLKS_PER_BIT)
     reg [2:0]    r_SM_Main      = 0;
     reg [15:0]    r_Clock_Count = 0;
     reg [2:0]    r_Bit_Index    = 0;
-    reg [15:0]    r_Tx_Data     = 0;
+    reg [7:0]    r_Tx_Data     = 0;
     reg          r_Tx_Done      = 0;
     reg          r_Tx_Active    = 0;
     
@@ -140,6 +140,6 @@ module uart_tx #(parameter CLKS_PER_BIT)
     
     assign o_Tx_Active = r_Tx_Active;
     assign o_Tx_Done   = r_Tx_Done;
-    assign o_Tx_State  = r_SM_Main;
+    assign o_Tx_State  = r_SM_Main; // kevin state
     
 endmodule

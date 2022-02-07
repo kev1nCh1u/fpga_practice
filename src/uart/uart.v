@@ -19,6 +19,7 @@ module uart (input wire clk,        // 50MHz input clock
     wire [7:0] RX_BYTE;
     wire r_RX_DV;
     reg r_RX_FLAG;
+    wire [2:0] RX_STATE; // kevin
     
     reg [7:0] DATA[10:0];
     reg [3:0] DATA_CNT = 0;
@@ -52,7 +53,8 @@ module uart (input wire clk,        // 50MHz input clock
     .i_Clock(clk),
     .i_Rx_Serial(UART_RX),
     .o_Rx_DV(r_RX_DV),
-    .o_Rx_Byte(RX_BYTE)
+    .o_Rx_Byte(RX_BYTE),
+    .o_Rx_State(RX_STATE)
     );
     
     always @(posedge clk) begin
@@ -73,27 +75,26 @@ module uart (input wire clk,        // 50MHz input clock
     end
 
     always @(posedge r_RX_DV) begin
-        r_RX_FLAG <= 1;
         if (RX_BYTE == 8'h01)
         begin
             r_RX_FLAG <= 1;
         end
-        // else if(RX_BYTE == 7'h00)
-        // begin
-        //     r_RX_FLAG <= 0;
-        // end
+        else if(RX_BYTE == 8'h00)
+        begin
+            r_RX_FLAG <= 0;
+        end
     end
     
     //assign LED to 25th bit of the counter to blink the LED at a few Hz
-    assign LED = cnt[24];
+    assign LED = r_RX_FLAG ? cnt[24] : 0;
     assign LED2 = r_RX_FLAG;
     
-    assign TEST_IO[0] = UART_TX;
-    assign TEST_IO[1] = LED;
-    assign TEST_IO[2] = TX_BYTE[0];
-    assign TEST_IO[3] = TX_ACTIVE;
-    assign TEST_IO[4] = TX_DONE;
-    assign TEST_IO[5] = TX_STATE[0];
+    assign TEST_IO[0] = LED;
+    assign TEST_IO[1] = UART_TX;
+    assign TEST_IO[2] = UART_RX;
+    // assign TEST_IO[3] = RX_STATE[0];
+    // assign TEST_IO[4] = RX_STATE[1];
+    assign TEST_IO[5] = r_RX_DV;
     assign TEST_IO[6] = RX_BYTE[0];
     assign TEST_IO[7] = r_RX_FLAG;
     
