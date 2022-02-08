@@ -10,8 +10,8 @@ module uart (input wire clk,        // 50MHz input clock
     
     reg [31:0] cnt; // led 32-bit counter
 
-    reg [7:0] TX_BYTE = 8'h0E;
-    reg r_TX_DV       = 1'b1;
+    reg [7:0] TX_BYTE;
+    reg r_TX_DV;
     wire TX_ACTIVE;
     wire TX_DONE;
     wire [2:0] TX_STATE;
@@ -22,21 +22,29 @@ module uart (input wire clk,        // 50MHz input clock
     wire [2:0] RX_STATE; // kevin
     
     reg [7:0] DATA[10:0];
-    reg [3:0] DATA_CNT = 0;
-    reg [15:0] BINARY_POINTS_H; // point x
-    reg [15:0] BINARY_POINTS_V; // point y
+    reg [3:0] DATA_CNT;
+    reg [15:0] BINARY_POINTS_H; // point_x
+    reg [15:0] BINARY_POINTS_V; // point_y
     
     initial begin
         cnt <= 32'h00000000; // led start at zero
     end
     
     initial begin // set tx data
+        BINARY_POINTS_H = 16'd640; // point_x
+        BINARY_POINTS_V = 16'd480; // point_y
+
         DATA[0] = 8'h53; //S
         DATA[1] = 8'h54; //T
-        DATA[2] = 8'h87; //data
-        DATA[3] = 8'h45; //E
-        DATA[4] = 8'h4E; //N
-        DATA[5] = 8'h44; //D
+
+        DATA[2] = BINARY_POINTS_H[15:8]; // point_x H
+        DATA[3] = BINARY_POINTS_H[7:0]; // point_x L
+        DATA[4] = BINARY_POINTS_V[15:8];  // point_y H
+        DATA[5] = BINARY_POINTS_V[7:0];  // point_y L
+
+        DATA[6] = 8'h45; //E
+        DATA[7] = 8'h4E; //N
+        DATA[8] = 8'h44; //D
     end
     
     uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
@@ -64,7 +72,7 @@ module uart (input wire clk,        // 50MHz input clock
 
     always @(posedge TX_DONE) begin
         TX_BYTE <= DATA[DATA_CNT];
-        if (DATA_CNT < 5)
+        if (DATA_CNT < 8)
         begin
             DATA_CNT <= DATA_CNT + 1;
         end
