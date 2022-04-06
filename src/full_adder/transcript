@@ -1,0 +1,51 @@
+# Loading project lab1
+# Compile of full_adder.v failed with 2 errors.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 2 failed with 4 errors.
+# Compile of full_adder.v failed with 2 errors.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 2 failed with 4 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v failed with 2 errors.
+# 2 compiles, 1 failed with 2 errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v was successful.
+# 2 compiles, 0 failed with no errors.
+# Compile of full_adder.v was successful.
+# Compile of T.v was successful.
+# 2 compiles, 0 failed with no errors.
+# Load canceled
+vsim work.T
+# vsim work.T 
+# Start time: 21:56:02 on Apr 06,2022
+# Loading work.T
+# Loading work.full_adder
+add wave -position end  sim:/T/Ain
+add wave -position end  sim:/T/Bin
+add wave -position end  sim:/T/Cin
+add wave -position end  sim:/T/Cout
+add wave -position end  sim:/T/Sum
+run -all
+# End time: 22:04:28 on Apr 06,2022, Elapsed time: 0:08:26
+# Errors: 0, Warnings: 16

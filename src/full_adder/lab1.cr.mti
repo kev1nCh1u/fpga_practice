@@ -1,0 +1,15 @@
+/home/kevin/src/fpga_practice/src/full_adder/T.v {1 {vlog -work work -stats=none /home/kevin/src/fpga_practice/src/full_adder/T.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module T
+
+Top level modules:
+	T
+
+} {} {}} /home/kevin/src/fpga_practice/src/full_adder/full_adder.v {1 {vlog -work work -stats=none /home/kevin/src/fpga_practice/src/full_adder/full_adder.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module full_adder
+
+Top level modules:
+	full_adder
+
+} {} {}}

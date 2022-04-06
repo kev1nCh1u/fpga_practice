@@ -1,0 +1,11 @@
+
+
+/home/kevin/src/fpga_practice/src/blink/pll/pll.v
+
+Dec 23 06PM:13:02>: Megafunction PLL Intel FPGA IP v21.1 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+/home/kevin/src/fpga_practice/src/blink/pll/pll.v
+
+Dec 23 06PM:13:09>: Megafunction PLL Intel FPGA IP v21.1 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
